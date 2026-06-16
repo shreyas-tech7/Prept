@@ -45,7 +45,7 @@ export function ScoreRing({
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke="#1C1C27"
+          stroke="var(--surface-2)"
           strokeWidth={stroke}
         />
         <circle
@@ -71,7 +71,7 @@ export function ScoreRing({
           {clamped % 1 === 0 ? clamped : clamped.toFixed(1)}
         </span>
         <span
-          className="text-[#9492A4]"
+          className="text-[var(--text-secondary)]"
           style={{ fontSize: size * 0.11, marginTop: size * 0.02 }}
         >
           {label}

@@ -27,7 +27,7 @@ times as you need, for free.
 ## Features
 
 - 🎙 Real-time voice-to-text via the Web Speech API (with a typing fallback)
-- 🤖 AI evaluation using Claude (score, strengths, improvements, model answer)
+- 🤖 AI evaluation using Google Gemini (score, strengths, improvements, model answer)
 - ⭐ STAR method breakdown for behavioral questions
 - 📊 Session history and progress tracking
 - 🎯 6 role categories, 3 difficulty levels, 3 interview types
@@ -41,7 +41,7 @@ times as you need, for free.
 | Framework    | Next.js 14 (App Router)                     |
 | Styling      | Tailwind CSS + hand-rolled shadcn-style UI  |
 | Auth + DB    | Supabase (`@supabase/ssr`, Postgres, RLS)   |
-| AI           | Anthropic Claude (`claude-haiku-4-5-20251001`) |
+| AI           | Google Gemini (`gemini-2.5-flash`)          |
 | Voice        | Web Speech API (browser-native, zero cost)  |
 | Deployment   | Vercel                                      |
 | Fonts        | DM Serif Display (headings) + DM Sans (body)|
@@ -54,7 +54,7 @@ No paid third-party services — everything runs on free tiers.
 
 - Node.js 18+
 - A Supabase project (free tier)
-- An Anthropic API key (free credits on signup)
+- A Google Gemini API key (free tier — https://aistudio.google.com/apikey)
 
 ### Installation
 
@@ -79,11 +79,11 @@ Open [http://localhost:3000](http://localhost:3000).
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
 SUPABASE_SERVICE_ROLE_KEY=
-ANTHROPIC_API_KEY=
+GEMINI_API_KEY=
 ```
 
 - **Supabase** values: Dashboard → Project Settings → API.
-- **Anthropic** key: https://console.anthropic.com/settings/keys.
+- **Gemini** key: https://aistudio.google.com/apikey.
 
 ### Database Setup
 
@@ -103,7 +103,7 @@ ANTHROPIC_API_KEY=
 
 1. **Choose your role** — pick a job title or paste a job description.
 2. **Answer out loud** — the Web Speech API transcribes your spoken answer live.
-3. **Get coached** — your answer is sent to a Next.js API route, scored by Claude
+3. **Get coached** — your answer is sent to a Next.js API route, scored by Gemini
    against role-specific standards, and returned with strengths, improvements, a
    model answer, and (for behavioral questions) a STAR breakdown.
 
@@ -125,8 +125,8 @@ prept/
 │   ├── session/[id]/              # Active interview (the core experience)
 │   ├── history/                   # Past sessions with inline Q&A breakdown
 │   └── api/
-│       ├── generate-question/     # Claude → next question
-│       ├── evaluate-answer/       # Claude → score + feedback (saved to DB)
+│       ├── generate-question/     # Gemini → next question
+│       ├── evaluate-answer/       # Gemini → score + feedback (saved to DB)
 │       └── end-session/           # Computes average, marks complete
 ├── components/
 │   ├── ui/                        # button, card, badge, toast, dialog, …
@@ -137,7 +137,7 @@ prept/
 │   └── dashboard/                 # StatCard, RecentSessions
 ├── lib/
 │   ├── supabase/{client,server}.ts
-│   ├── anthropic.ts               # Lazy Claude client + JSON parsing
+│   ├── gemini.ts                  # Lazy Gemini client + JSON parsing
 │   └── prompts.ts                 # All AI prompts in one place
 ├── types/index.ts
 ├── middleware.ts                  # Protects /dashboard, /session, /history
@@ -146,7 +146,7 @@ prept/
 
 ## Security Notes
 
-- `ANTHROPIC_API_KEY` is **only** ever read server-side inside `/app/api/*`
+- `GEMINI_API_KEY` is **only** ever read server-side inside `/app/api/*`
   routes — it is never exposed to the browser.
 - All database access is gated by Supabase Row Level Security.
 - Model JSON output is parsed defensively (markdown fences stripped, wrapped in
@@ -164,7 +164,7 @@ prept/
 
 ## References
 
-- Anthropic Claude API: https://docs.anthropic.com
+- Google Gemini API: https://ai.google.dev/gemini-api/docs
 - Supabase Docs: https://supabase.com/docs
 - Web Speech API: https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API
 - STAR Interview Method: https://www.themuse.com/advice/star-interview-method

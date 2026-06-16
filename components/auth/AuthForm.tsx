@@ -56,7 +56,6 @@ export function AuthForm({ mode }: AuthFormProps) {
         if (error) throw error;
 
         if (data.session) {
-          // Email confirmation disabled — user is signed in immediately.
           router.push("/dashboard");
           router.refresh();
         } else {
@@ -78,15 +77,15 @@ export function AuthForm({ mode }: AuthFormProps) {
 
   if (emailSent) {
     return (
-      <div className="w-full max-w-md rounded-xl border border-[#2A2A3C] bg-[#13131A] p-8 text-center">
-        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-400">
+      <div className="w-full max-w-md rounded-xl border border-[var(--border)] bg-[var(--surface)] p-8 text-center shadow-[var(--card-shadow)]">
+        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-500">
           <MailCheck className="h-7 w-7" />
         </div>
         <h1 className="font-display text-3xl">Check your email</h1>
-        <p className="mt-3 text-[#9492A4]">
+        <p className="mt-3 text-[var(--text-secondary)]">
           We sent a confirmation link to{" "}
-          <span className="text-[#F1F0EE]">{email}</span>. Click it to activate
-          your account, then come back and log in.
+          <span className="text-[var(--text-primary)]">{email}</span>. Click it to
+          activate your account, then come back and log in.
         </p>
         <Button asChild variant="secondary" className="mt-6">
           <Link href="/auth/login">Back to login</Link>
@@ -104,11 +103,11 @@ export function AuthForm({ mode }: AuthFormProps) {
         <span className="font-display text-2xl">Prept</span>
       </Link>
 
-      <div className="rounded-xl border border-[#2A2A3C] bg-[#13131A] p-8">
+      <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-8 shadow-[var(--card-shadow)]">
         <h1 className="font-display text-3xl">
           {isLogin ? "Welcome back." : "Start practicing today."}
         </h1>
-        <p className="mt-2 text-sm text-[#9492A4]">
+        <p className="mt-2 text-sm text-[var(--text-secondary)]">
           {isLogin
             ? "Log in to continue improving your interview skills."
             : "Create a free account — no credit card required."}
@@ -116,7 +115,9 @@ export function AuthForm({ mode }: AuthFormProps) {
 
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <div>
-            <label className="mb-1.5 block text-sm text-[#9492A4]">Email</label>
+            <label className="mb-1.5 block text-sm text-[var(--text-secondary)]">
+              Email
+            </label>
             <Input
               type="email"
               required
@@ -127,7 +128,7 @@ export function AuthForm({ mode }: AuthFormProps) {
             />
           </div>
           <div>
-            <label className="mb-1.5 block text-sm text-[#9492A4]">
+            <label className="mb-1.5 block text-sm text-[var(--text-secondary)]">
               Password
             </label>
             <Input
@@ -155,18 +156,18 @@ export function AuthForm({ mode }: AuthFormProps) {
           </Button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-[#9492A4]">
+        <p className="mt-6 text-center text-sm text-[var(--text-secondary)]">
           {isLogin ? (
             <>
               Don&apos;t have an account?{" "}
-              <Link href="/auth/signup" className="text-amber-400 hover:underline">
+              <Link href="/auth/signup" className="text-amber-500 hover:underline">
                 Sign up
               </Link>
             </>
           ) : (
             <>
               Already have an account?{" "}
-              <Link href="/auth/login" className="text-amber-400 hover:underline">
+              <Link href="/auth/login" className="text-amber-500 hover:underline">
                 Log in
               </Link>
             </>

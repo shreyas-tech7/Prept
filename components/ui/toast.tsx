@@ -67,25 +67,29 @@ function ToastCard({
 
   const accent =
     toast.variant === "success"
-      ? "text-emerald-400"
+      ? "text-emerald-500"
       : toast.variant === "error"
-      ? "text-red-400"
-      : "text-amber-400";
+      ? "text-red-500"
+      : "text-amber-500";
 
   return (
-    <div className="pointer-events-auto flex items-start gap-3 rounded-lg border border-[#2A2A3C] bg-[#1C1C27] p-4 shadow-xl animate-fade-up">
+    <div className="pointer-events-auto flex items-start gap-3 rounded-lg border border-[var(--border)] bg-[var(--surface-2)] p-4 shadow-xl animate-fade-up">
       <Icon className={cn("mt-0.5 h-5 w-5 shrink-0", accent)} />
       <div className="flex-1">
         {toast.title && (
-          <p className="text-sm font-semibold text-[#F1F0EE]">{toast.title}</p>
+          <p className="text-sm font-semibold text-[var(--text-primary)]">
+            {toast.title}
+          </p>
         )}
         {toast.description && (
-          <p className="mt-0.5 text-xs text-[#9492A4]">{toast.description}</p>
+          <p className="mt-0.5 text-xs text-[var(--text-secondary)]">
+            {toast.description}
+          </p>
         )}
       </div>
       <button
         onClick={onClose}
-        className="text-[#9492A4] transition hover:text-[#F1F0EE]"
+        className="text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)]"
         aria-label="Dismiss"
       >
         <X className="h-4 w-4" />
@@ -97,7 +101,6 @@ function ToastCard({
 export function useToast(): ToastContextValue {
   const ctx = React.useContext(ToastContext);
   if (!ctx) {
-    // Safe no-op fallback if used outside the provider.
     return { toast: () => {} };
   }
   return ctx;

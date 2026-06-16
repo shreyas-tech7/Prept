@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAnthropic, MODEL, parseModelJson } from "@/lib/anthropic";
+import { generateJson } from "@/lib/gemini";
 import { buildQuestionPrompt } from "@/lib/prompts";
 import type { GeneratedQuestion } from "@/types";
 
@@ -23,14 +23,7 @@ export async function POST(req: NextRequest) {
       previousQuestions: previousQuestions ?? [],
     });
 
-    const message = await getAnthropic().messages.create({
-      model: MODEL,
-      max_tokens: 500,
-      messages: [{ role: "user", content: prompt }],
-    });
-
-    const text = message.content[0].type === "text" ? message.content[0].text : "";
-    const parsed = parseModelJson<GeneratedQuestion>(text);
+    const parsed = await generateJson<GeneratedQuestion>(prompt, 500);
 
     return NextResponse.json(parsed);
   } catch (error) {

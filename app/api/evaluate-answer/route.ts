@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAnthropic, MODEL, parseModelJson } from "@/lib/anthropic";
+import { generateJson } from "@/lib/gemini";
 import { buildEvaluationPrompt } from "@/lib/prompts";
 import { createServerClient } from "@/lib/supabase/server";
 import type { FeedbackResult } from "@/types";
@@ -31,14 +31,7 @@ export async function POST(req: NextRequest) {
       answer,
     });
 
-    const message = await getAnthropic().messages.create({
-      model: MODEL,
-      max_tokens: 1000,
-      messages: [{ role: "user", content: prompt }],
-    });
-
-    const text = message.content[0].type === "text" ? message.content[0].text : "";
-    const feedback = parseModelJson<FeedbackResult>(text);
+    const feedback = await generateJson<FeedbackResult>(prompt, 1000);
 
     // Persist the response (best-effort — never block feedback on a DB error).
     try {

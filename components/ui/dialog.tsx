@@ -36,14 +36,14 @@ const DialogContent = React.forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        "fixed left-1/2 top-1/2 z-50 grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl border border-[#2A2A3C] bg-[#13131A] p-6 shadow-2xl data-[state=open]:animate-dialog-in focus:outline-none max-h-[90vh] overflow-y-auto",
+        "fixed left-1/2 top-1/2 z-50 grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-2xl data-[state=open]:animate-dialog-in focus:outline-none max-h-[90vh] overflow-y-auto",
         className
       )}
       {...props}
     >
       {children}
       {!hideClose && (
-        <DialogPrimitive.Close className="absolute right-4 top-4 rounded-md text-[#9492A4] opacity-80 transition hover:text-[#F1F0EE] focus:outline-none">
+        <DialogPrimitive.Close className="absolute right-4 top-4 rounded-md text-[var(--text-secondary)] opacity-80 transition-colors hover:text-[var(--text-primary)] focus:outline-none">
           <X className="h-5 w-5" />
           <span className="sr-only">Close</span>
         </DialogPrimitive.Close>
@@ -79,7 +79,7 @@ const DialogDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Description
     ref={ref}
-    className={cn("text-sm text-[#9492A4]", className)}
+    className={cn("text-sm text-[var(--text-secondary)]", className)}
     {...props}
   />
 ));

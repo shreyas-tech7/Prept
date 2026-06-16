@@ -137,9 +137,9 @@ export default function NewSessionPage() {
     <div className="flex min-h-screen flex-col">
       <Navbar />
       <main className="mx-auto w-full max-w-2xl flex-1 px-4 py-10 sm:px-6">
-        {/* progress */}
+        {/* Progress */}
         <div className="mb-10">
-          <div className="mb-2 flex items-center justify-between text-sm text-[#9492A4]">
+          <div className="mb-2 flex items-center justify-between text-sm text-[var(--text-secondary)]">
             <span>Step {step} of 3</span>
             <span>
               {step === 1 ? "Role" : step === 2 ? "Interview type" : "Settings"}
@@ -151,7 +151,7 @@ export default function NewSessionPage() {
                 key={s}
                 className={cn(
                   "h-1.5 flex-1 rounded-full transition-colors",
-                  s <= step ? "bg-amber-500" : "bg-[#1C1C27]"
+                  s <= step ? "bg-amber-500" : "bg-[var(--surface-2)]"
                 )}
               />
             ))}
@@ -177,10 +177,10 @@ export default function NewSessionPage() {
                   key={r}
                   onClick={() => setRole(r)}
                   className={cn(
-                    "rounded-full border px-3.5 py-1.5 text-sm transition",
+                    "rounded-full border px-3.5 py-1.5 text-sm transition-colors",
                     role === r
-                      ? "border-amber-500 bg-amber-500/10 text-amber-300"
-                      : "border-[#2A2A3C] text-[#9492A4] hover:border-amber-500/40 hover:text-[#F1F0EE]"
+                      ? "border-amber-500 bg-amber-500/10 text-amber-500"
+                      : "border-[var(--border)] text-[var(--text-secondary)] hover:border-amber-500/40 hover:text-[var(--text-primary)]"
                   )}
                 >
                   {r}
@@ -191,7 +191,7 @@ export default function NewSessionPage() {
             <div>
               <button
                 onClick={() => setShowJD((v) => !v)}
-                className="flex items-center gap-1.5 text-sm text-[#9492A4] transition hover:text-[#F1F0EE]"
+                className="flex items-center gap-1.5 text-sm text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)]"
               >
                 <ChevronDown
                   className={cn(
@@ -225,10 +225,10 @@ export default function NewSessionPage() {
                     key={t.value}
                     onClick={() => setInterviewType(t.value)}
                     className={cn(
-                      "flex items-start gap-4 rounded-xl border p-5 text-left transition",
+                      "flex items-start gap-4 rounded-xl border p-5 text-left transition-colors",
                       active
                         ? "border-amber-500 bg-amber-500/5"
-                        : "border-[#2A2A3C] bg-[#13131A] hover:border-amber-500/40"
+                        : "border-[var(--border)] bg-[var(--surface)] hover:border-amber-500/40"
                     )}
                   >
                     <span
@@ -236,16 +236,18 @@ export default function NewSessionPage() {
                         "flex h-11 w-11 shrink-0 items-center justify-center rounded-lg",
                         active
                           ? "bg-amber-500 text-black"
-                          : "bg-[#1C1C27] text-[#9492A4]"
+                          : "bg-[var(--surface-2)] text-[var(--text-secondary)]"
                       )}
                     >
                       <t.icon className="h-5 w-5" />
                     </span>
                     <div className="flex-1">
                       <p className="font-display text-xl">{t.title}</p>
-                      <p className="mt-0.5 text-sm text-[#9492A4]">{t.body}</p>
+                      <p className="mt-0.5 text-sm text-[var(--text-secondary)]">
+                        {t.body}
+                      </p>
                     </div>
-                    {active && <Check className="h-5 w-5 text-amber-400" />}
+                    {active && <Check className="h-5 w-5 text-amber-500" />}
                   </button>
                 );
               })}
@@ -259,17 +261,17 @@ export default function NewSessionPage() {
             <h2 className="font-display text-3xl">Final settings</h2>
 
             <div>
-              <p className="mb-3 text-sm text-[#9492A4]">Difficulty</p>
-              <div className="grid grid-cols-3 gap-2 rounded-lg border border-[#2A2A3C] bg-[#13131A] p-1">
+              <p className="mb-3 text-sm text-[var(--text-secondary)]">Difficulty</p>
+              <div className="grid grid-cols-3 gap-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] p-1">
                 {DIFFICULTIES.map((d) => (
                   <button
                     key={d.value}
                     onClick={() => setDifficulty(d.value)}
                     className={cn(
-                      "rounded-md py-2.5 text-sm font-medium transition",
+                      "rounded-md py-2.5 text-sm font-medium transition-colors",
                       difficulty === d.value
                         ? "bg-amber-500 text-black"
-                        : "text-[#9492A4] hover:text-[#F1F0EE]"
+                        : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
                     )}
                   >
                     {d.label}
@@ -279,17 +281,19 @@ export default function NewSessionPage() {
             </div>
 
             <div>
-              <p className="mb-3 text-sm text-[#9492A4]">Number of questions</p>
-              <div className="grid grid-cols-3 gap-2 rounded-lg border border-[#2A2A3C] bg-[#13131A] p-1">
+              <p className="mb-3 text-sm text-[var(--text-secondary)]">
+                Number of questions
+              </p>
+              <div className="grid grid-cols-3 gap-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] p-1">
                 {COUNTS.map((c) => (
                   <button
                     key={c}
                     onClick={() => setQuestionCount(c)}
                     className={cn(
-                      "rounded-md py-2.5 text-sm font-medium transition",
+                      "rounded-md py-2.5 text-sm font-medium transition-colors",
                       questionCount === c
                         ? "bg-amber-500 text-black"
-                        : "text-[#9492A4] hover:text-[#F1F0EE]"
+                        : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
                     )}
                   >
                     {c}
@@ -298,16 +302,17 @@ export default function NewSessionPage() {
               </div>
             </div>
 
-            <div className="rounded-lg border border-[#2A2A3C] bg-[#13131A] p-4 text-sm text-[#9492A4]">
+            <div className="rounded-lg border border-[var(--border)] bg-[var(--surface)] p-4 text-sm text-[var(--text-secondary)]">
               You&apos;ll practice{" "}
-              <span className="text-[#F1F0EE]">{questionCount}</span>{" "}
-              <span className="text-[#F1F0EE]">{interviewType}</span> questions
-              for a <span className="text-[#F1F0EE]">{role || "—"}</span> role.
+              <span className="text-[var(--text-primary)]">{questionCount}</span>{" "}
+              <span className="text-[var(--text-primary)]">{interviewType}</span>{" "}
+              questions for a{" "}
+              <span className="text-[var(--text-primary)]">{role || "—"}</span> role.
             </div>
           </div>
         )}
 
-        {/* nav */}
+        {/* Navigation */}
         <div className="mt-10 flex items-center justify-between">
           {step > 1 ? (
             <Button

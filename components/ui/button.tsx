@@ -10,8 +10,8 @@ const buttonVariants = cva(
       variant: {
         default: "bg-amber-500 text-black hover:bg-amber-400",
         secondary:
-          "border border-[#2A2A3C] bg-transparent text-[#F1F0EE] hover:border-amber-500/40 hover:bg-[#1C1C27]",
-        ghost: "text-[#F1F0EE] hover:bg-[#1C1C27]",
+          "border border-[var(--border)] bg-transparent text-[var(--text-primary)] hover:border-amber-500/40 hover:bg-[var(--surface-2)]",
+        ghost: "text-[var(--text-primary)] hover:bg-[var(--surface-2)]",
         destructive: "bg-red-500 text-white hover:bg-red-400",
         link: "text-amber-500 underline-offset-4 hover:underline",
       },

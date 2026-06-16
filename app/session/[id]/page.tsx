@@ -211,7 +211,7 @@ export default function SessionPage({ params }: { params: { id: string } }) {
     return (
       <CenteredShell>
         <h1 className="font-display text-3xl">Session not found</h1>
-        <p className="mt-2 text-[#9492A4]">
+        <p className="mt-2 text-[var(--text-secondary)]">
           This session doesn&apos;t exist or you don&apos;t have access to it.
         </p>
         <Button asChild className="mt-6">
@@ -268,14 +268,14 @@ export default function SessionPage({ params }: { params: { id: string } }) {
                 tip={current.tip}
               />
             ) : (
-              <div className="flex h-64 items-center justify-center rounded-xl border border-[#2A2A3C] bg-[#13131A]">
+              <div className="flex h-64 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--surface)]">
                 <Loader2 className="h-6 w-6 animate-spin text-amber-400" />
               </div>
             )}
           </div>
 
           {/* Right panel */}
-          <div className="rounded-xl border border-[#2A2A3C] bg-[#13131A] p-5 sm:p-7">
+          <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-5 sm:p-7">
             {phase === "loading" && (
               <div className="flex min-h-[340px] flex-col items-center justify-center gap-4 text-center">
                 <Loader2 className="h-9 w-9 animate-spin text-amber-400" />
@@ -288,7 +288,7 @@ export default function SessionPage({ params }: { params: { id: string } }) {
             {phase === "error" && (
               <div className="flex min-h-[340px] flex-col items-center justify-center gap-4 text-center">
                 <p className="font-display text-xl">Something went wrong</p>
-                <p className="max-w-xs text-sm text-[#9492A4]">
+                <p className="max-w-xs text-sm text-[var(--text-secondary)]">
                   We couldn&apos;t generate a question. This usually means the
                   Anthropic API key isn&apos;t set.
                 </p>
@@ -329,7 +329,7 @@ export default function SessionPage({ params }: { params: { id: string } }) {
 function SessionHeader({ sessionId }: { sessionId: string }) {
   void sessionId;
   return (
-    <header className="sticky top-0 z-40 border-b border-[#2A2A3C] bg-[#09090E]/80 backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-[var(--border)] backdrop-blur-md" style={{ backgroundColor: "var(--nav-bg)" }}>
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <Link href="/" className="flex items-center gap-2">
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-500 text-black">

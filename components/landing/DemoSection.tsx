@@ -73,7 +73,6 @@ export function DemoSection() {
   async function run() {
     if (!answer.trim()) return;
     setLoading(true);
-    // brief delay so it reads as "thinking"
     await new Promise((r) => setTimeout(r, 900));
     setFeedback(mockEvaluate(answer));
     setLoading(false);
@@ -87,22 +86,22 @@ export function DemoSection() {
   return (
     <section className="mx-auto max-w-3xl px-4 py-24 sm:px-6">
       <div className="mb-8 text-center">
-        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-xs text-amber-300">
+        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-xs text-amber-500">
           <Sparkles className="h-3.5 w-3.5" />
           Try it now — no sign-up
         </div>
         <h2 className="font-display text-4xl tracking-tight sm:text-5xl">
           Try a sample question
         </h2>
-        <p className="mt-3 text-[#9492A4]">
+        <p className="mt-3 text-[var(--text-secondary)]">
           Type a quick answer and see exactly the kind of coaching Prept gives.
         </p>
       </div>
 
-      <div className="rounded-xl border border-[#2A2A3C] bg-[#13131A] p-6 sm:p-8">
+      <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-[var(--card-shadow)] sm:p-8">
         <div className="mb-4 flex items-center gap-2">
           <Badge variant="behavioral">behavioral</Badge>
-          <span className="text-xs text-[#9492A4]">Sample · Product Manager</span>
+          <span className="text-xs text-[var(--text-secondary)]">Sample · Product Manager</span>
         </div>
         <p className="font-display text-2xl leading-snug">{DEMO_QUESTION}</p>
 
@@ -116,7 +115,7 @@ export function DemoSection() {
               disabled={loading}
             />
             <div className="flex items-center justify-between">
-              <span className="text-xs text-[#9492A4]">
+              <span className="text-xs text-[var(--text-secondary)]">
                 {answer.trim() ? answer.trim().split(/\s+/).length : 0} words
               </span>
               <Button onClick={run} disabled={loading || !answer.trim()}>

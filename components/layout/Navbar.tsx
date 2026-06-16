@@ -3,13 +3,22 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Mic, LogOut, LayoutDashboard, History as HistoryIcon } from "lucide-react";
+import {
+  Mic,
+  LogOut,
+  LayoutDashboard,
+  History as HistoryIcon,
+  Sun,
+  Moon,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
+import { useTheme } from "@/components/ThemeProvider";
 
 export function Navbar() {
   const router = useRouter();
   const [authed, setAuthed] = useState<boolean | null>(null);
+  const { theme, toggle } = useTheme();
 
   useEffect(() => {
     const supabase = createClient();
@@ -28,7 +37,10 @@ export function Navbar() {
   }
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[#2A2A3C] bg-[#09090E]/80 backdrop-blur-md">
+    <header
+      className="sticky top-0 z-40 border-b border-[var(--border)] backdrop-blur-md"
+      style={{ backgroundColor: "var(--nav-bg)" }}
+    >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <Link href="/" className="flex items-center gap-2">
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-500 text-black">
@@ -52,7 +64,7 @@ export function Navbar() {
                   <span className="hidden sm:inline">History</span>
                 </Link>
               </Button>
-              <Button variant="secondary" size="sm" onClick={signOut}>
+              <Button variant="ghost" size="sm" onClick={signOut}>
                 <LogOut className="h-4 w-4" />
                 <span className="hidden sm:inline">Sign out</span>
               </Button>
@@ -67,6 +79,19 @@ export function Navbar() {
               </Button>
             </>
           )}
+
+          {/* Theme toggle */}
+          <button
+            onClick={toggle}
+            aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+            className="ml-1 flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--border)] text-[var(--text-secondary)] transition-colors hover:border-amber-500/40 hover:text-[var(--text-primary)]"
+          >
+            {theme === "dark" ? (
+              <Sun className="h-3.5 w-3.5" />
+            ) : (
+              <Moon className="h-3.5 w-3.5" />
+            )}
+          </button>
         </nav>
       </div>
     </header>

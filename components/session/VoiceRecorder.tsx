@@ -31,8 +31,8 @@ export function VoiceRecorder({ onSubmit, disabled }: VoiceRecorderProps) {
   const [textValue, setTextValue] = useState("");
 
   const recognitionRef = useRef<SpeechRecognition | null>(null);
-  const finalRef = useRef(""); // text committed across restarts
-  const sessionFinalRef = useRef(""); // final text from the current recognition run
+  const finalRef = useRef("");
+  const sessionFinalRef = useRef("");
   const listeningRef = useRef(false);
 
   useEffect(() => {
@@ -87,7 +87,6 @@ export function VoiceRecorder({ onSubmit, disabled }: VoiceRecorderProps) {
     };
 
     recognition.onend = () => {
-      // Commit this run's final text, and keep listening if the user hasn't stopped.
       finalRef.current = (finalRef.current + sessionFinalRef.current).replace(
         /\s+/g,
         " "
@@ -120,8 +119,8 @@ export function VoiceRecorder({ onSubmit, disabled }: VoiceRecorderProps) {
   const stopAndSubmit = useCallback(async () => {
     listeningRef.current = false;
     recognitionRef.current?.stop();
-    const answer = (finalRef.current + sessionFinalRef.current).trim() ||
-      transcript.trim();
+    const answer =
+      (finalRef.current + sessionFinalRef.current).trim() || transcript.trim();
     setRecording(false);
 
     if (!answer) {
@@ -158,17 +157,17 @@ export function VoiceRecorder({ onSubmit, disabled }: VoiceRecorderProps) {
     }
   }, [onSubmit, textValue, toast]);
 
-  // ---- Processing state ----
+  // Processing state
   if (submitting) {
     return (
       <div className="flex min-h-[340px] flex-col items-center justify-center gap-4 text-center">
-        <Loader2 className="h-10 w-10 animate-spin text-amber-400" />
+        <Loader2 className="h-10 w-10 animate-spin text-amber-500" />
         <p className="font-display text-xl">Coaching your answer…</p>
-        <p className="max-w-xs text-sm text-[#9492A4]">
-          Claude is scoring your response and writing specific feedback.
+        <p className="max-w-xs text-sm text-[var(--text-secondary)]">
+          AI is scoring your response and writing specific feedback.
         </p>
         {transcript && (
-          <p className="mt-2 max-h-28 max-w-md overflow-y-auto rounded-lg border border-[#2A2A3C] bg-[#0F0F16] p-3 text-left text-xs text-[#9492A4]">
+          <p className="mt-2 max-h-28 max-w-md overflow-y-auto rounded-lg border border-[var(--border)] bg-[var(--surface-inset)] p-3 text-left text-xs text-[var(--text-secondary)]">
             {transcript}
           </p>
         )}
@@ -176,12 +175,12 @@ export function VoiceRecorder({ onSubmit, disabled }: VoiceRecorderProps) {
     );
   }
 
-  // ---- Type mode ----
+  // Type mode
   if (typeMode) {
     return (
       <div className="flex flex-col gap-4">
         {supported === false && (
-          <p className="rounded-lg border border-[#2A2A3C] bg-[#1C1C27] px-4 py-2 text-xs text-[#9492A4]">
+          <p className="rounded-lg border border-[var(--border)] bg-[var(--surface-2)] px-4 py-2 text-xs text-[var(--text-secondary)]">
             Voice input isn&apos;t supported in this browser — type your answer
             below. (Tip: Chrome works best for voice.)
           </p>
@@ -194,7 +193,7 @@ export function VoiceRecorder({ onSubmit, disabled }: VoiceRecorderProps) {
           disabled={disabled}
         />
         <div className="flex items-center justify-between">
-          <span className="text-xs text-[#9492A4]">
+          <span className="text-xs text-[var(--text-secondary)]">
             {countWords(textValue)} words
           </span>
           <div className="flex gap-2">
@@ -218,7 +217,7 @@ export function VoiceRecorder({ onSubmit, disabled }: VoiceRecorderProps) {
     );
   }
 
-  // ---- Recording state (spotlight) ----
+  // Recording state
   if (recording) {
     return (
       <div className="recording-spotlight flex flex-col items-center gap-6 rounded-xl py-6">
@@ -231,18 +230,18 @@ export function VoiceRecorder({ onSubmit, disabled }: VoiceRecorderProps) {
           <AudioLines className="relative h-9 w-9 text-black" />
         </button>
 
-        <p className="text-sm text-amber-200/80">Listening… speak naturally</p>
+        <p className="text-sm text-amber-500/80">Listening… speak naturally</p>
 
-        <div className="min-h-[96px] w-full rounded-lg border border-[#2A2A3C] bg-[#0F0F16] p-4 text-sm leading-relaxed text-[#D6D5DE]">
+        <div className="min-h-[96px] w-full rounded-lg border border-[var(--border)] bg-[var(--surface-inset)] p-4 text-sm leading-relaxed text-[var(--text-primary)]">
           {transcript || (
-            <span className="text-[#9492A4]">
+            <span className="text-[var(--text-secondary)]">
               Your words will appear here as you speak…
             </span>
           )}
         </div>
 
         <div className="flex w-full items-center justify-between">
-          <span className="text-xs text-[#9492A4]">
+          <span className="text-xs text-[var(--text-secondary)]">
             {countWords(transcript)} words
           </span>
           <Button variant="destructive" onClick={stopAndSubmit}>
@@ -254,20 +253,20 @@ export function VoiceRecorder({ onSubmit, disabled }: VoiceRecorderProps) {
     );
   }
 
-  // ---- Idle state ----
+  // Idle state
   return (
     <div className="flex flex-col items-center gap-6 py-6">
       <button
         onClick={startRecording}
         disabled={disabled}
-        className="flex h-24 w-24 items-center justify-center rounded-full border-2 border-[#2A2A3C] bg-[#1C1C27] text-[#F1F0EE] transition hover:border-amber-500/50 hover:text-amber-400 disabled:opacity-50"
+        className="flex h-24 w-24 items-center justify-center rounded-full border-2 border-[var(--border)] bg-[var(--surface-2)] text-[var(--text-primary)] transition-colors hover:border-amber-500/50 hover:text-amber-500 disabled:opacity-50"
         aria-label="Start recording"
       >
         <Mic className="h-9 w-9" />
       </button>
       <div className="text-center">
         <p className="font-display text-xl">Click to start speaking</p>
-        <p className="mt-1 text-sm text-[#9492A4]">
+        <p className="mt-1 text-sm text-[var(--text-secondary)]">
           Answer out loud, just like a real interview.
         </p>
       </div>
@@ -278,7 +277,7 @@ export function VoiceRecorder({ onSubmit, disabled }: VoiceRecorderProps) {
 
       <button
         onClick={() => setTypeMode(true)}
-        className="flex items-center gap-1.5 text-sm text-[#9492A4] transition hover:text-[#F1F0EE]"
+        className="flex items-center gap-1.5 text-sm text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)]"
       >
         <Keyboard className="h-4 w-4" />
         or type your answer instead

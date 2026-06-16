@@ -1,6 +1,12 @@
 "use client";
 
-import { Trophy, RotateCcw, LayoutDashboard, CheckCircle2, AlertTriangle } from "lucide-react";
+import {
+  Trophy,
+  RotateCcw,
+  LayoutDashboard,
+  CheckCircle2,
+  AlertTriangle,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScoreRing } from "@/components/session/ScoreRing";
 import { Badge } from "@/components/ui/badge";
@@ -38,17 +44,19 @@ export function SessionSummary({
   onDashboard,
 }: SessionSummaryProps) {
   return (
-    <div className="animate-fade-up mx-auto max-w-2xl rounded-2xl border border-[#2A2A3C] bg-[#13131A] p-6 sm:p-10">
+    <div className="animate-fade-up mx-auto max-w-2xl rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-[var(--card-shadow)] sm:p-10">
       <div className="text-center">
-        <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-400">
+        <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-500">
           <Trophy className="h-7 w-7" />
         </div>
         <h2 className="font-display text-3xl">Session complete</h2>
-        <p className="mt-1 text-[#9492A4]">Here&apos;s how you did overall.</p>
+        <p className="mt-1 text-[var(--text-secondary)]">
+          Here&apos;s how you did overall.
+        </p>
 
         <div className="mt-6 flex flex-col items-center gap-2">
           <ScoreRing score={averageScore} size={150} />
-          <p className="text-sm text-[#9492A4]">
+          <p className="text-sm text-[var(--text-secondary)]">
             {averageScore.toFixed(1)} out of 10 average
           </p>
         </div>
@@ -62,13 +70,13 @@ export function SessionSummary({
             const score = r.score ?? 0;
             return (
               <div key={r.question_number} className="flex items-center gap-3">
-                <span className="w-7 shrink-0 text-sm text-[#9492A4]">
+                <span className="w-7 shrink-0 text-sm text-[var(--text-secondary)]">
                   Q{r.question_number}
                 </span>
                 <Badge variant={typeVariant(r.question_type)}>
                   {r.question_type ?? "—"}
                 </Badge>
-                <div className="h-2.5 flex-1 overflow-hidden rounded-full bg-[#1C1C27]">
+                <div className="h-2.5 flex-1 overflow-hidden rounded-full bg-[var(--surface-2)]">
                   <div
                     className="h-full rounded-full transition-all"
                     style={{
@@ -89,38 +97,48 @@ export function SessionSummary({
       {/* Strengths + improvements */}
       <div className="mt-8 grid gap-5 sm:grid-cols-2">
         <div>
-          <div className="mb-2 flex items-center gap-2 text-emerald-400">
+          <div className="mb-2 flex items-center gap-2 text-emerald-500">
             <CheckCircle2 className="h-5 w-5" />
             <h4 className="font-semibold">Top strengths</h4>
           </div>
           <ul className="space-y-2">
             {strengths.length ? (
               strengths.map((s, i) => (
-                <li key={i} className="flex gap-2 text-sm text-[#D6D5DE]">
-                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" />
+                <li
+                  key={i}
+                  className="flex gap-2 text-sm text-[var(--text-primary)]"
+                >
+                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" />
                   {s}
                 </li>
               ))
             ) : (
-              <li className="text-sm text-[#9492A4]">Keep practicing!</li>
+              <li className="text-sm text-[var(--text-secondary)]">
+                Keep practicing!
+              </li>
             )}
           </ul>
         </div>
         <div>
-          <div className="mb-2 flex items-center gap-2 text-orange-400">
+          <div className="mb-2 flex items-center gap-2 text-orange-500">
             <AlertTriangle className="h-5 w-5" />
             <h4 className="font-semibold">Key improvements</h4>
           </div>
           <ul className="space-y-2">
             {improvements.length ? (
               improvements.map((s, i) => (
-                <li key={i} className="flex gap-2 text-sm text-[#D6D5DE]">
-                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-400" />
+                <li
+                  key={i}
+                  className="flex gap-2 text-sm text-[var(--text-primary)]"
+                >
+                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-500" />
                   {s}
                 </li>
               ))
             ) : (
-              <li className="text-sm text-[#9492A4]">No notes — great work!</li>
+              <li className="text-sm text-[var(--text-secondary)]">
+                No notes — great work!
+              </li>
             )}
           </ul>
         </div>

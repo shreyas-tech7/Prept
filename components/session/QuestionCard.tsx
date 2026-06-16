@@ -41,7 +41,7 @@ export function QuestionCard({
   const progress = (questionNumber / totalQuestions) * 100;
 
   return (
-    <div className="flex flex-col gap-5 rounded-xl border border-[#2A2A3C] bg-[#13131A] p-6">
+    <div className="flex flex-col gap-5 rounded-xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-[var(--card-shadow)]">
       <div className="flex flex-wrap items-center gap-2">
         <Badge variant="neutral">{role}</Badge>
         <Badge variant={typeVariant(questionType ?? interviewType)}>
@@ -53,7 +53,7 @@ export function QuestionCard({
       </div>
 
       <div>
-        <div className="mb-2 flex items-center justify-between text-sm text-[#9492A4]">
+        <div className="mb-2 flex items-center justify-between text-sm text-[var(--text-secondary)]">
           <span>
             Question {questionNumber} of {totalQuestions}
           </span>
@@ -62,18 +62,18 @@ export function QuestionCard({
         <Progress value={progress} />
       </div>
 
-      <div className="rounded-lg border border-[#2A2A3C] bg-[#1C1C27] p-5">
-        <p className="text-xs uppercase tracking-wider text-[#9492A4]">
+      <div className="rounded-lg border border-[var(--border)] bg-[var(--surface-2)] p-5">
+        <p className="text-xs uppercase tracking-wider text-[var(--text-secondary)]">
           Question
         </p>
-        <p className="mt-2 font-display text-2xl leading-snug text-[#F1F0EE]">
+        <p className="mt-2 font-display text-2xl leading-snug text-[var(--text-primary)]">
           {question}
         </p>
       </div>
 
       {tip && (
-        <div className="flex gap-2.5 rounded-lg bg-amber-500/5 p-4 text-sm text-amber-200/90">
-          <Lightbulb className="h-5 w-5 shrink-0 text-amber-400" />
+        <div className="flex gap-2.5 rounded-lg bg-amber-500/8 p-4 text-sm text-amber-600 dark:text-amber-200/90">
+          <Lightbulb className="h-5 w-5 shrink-0 text-amber-500" />
           <p>{tip}</p>
         </div>
       )}

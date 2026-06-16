@@ -81,7 +81,7 @@ export default function DashboardPage() {
           <h1 className="font-display text-4xl capitalize tracking-tight">
             {greeting()}, {name}.
           </h1>
-          <p className="mt-1 text-[#9492A4]">
+          <p className="mt-1 text-[var(--text-secondary)]">
             Ready for your next practice session?
           </p>
         </div>
@@ -123,7 +123,7 @@ export default function DashboardPage() {
             >
               <div>
                 <p className="font-display text-2xl">Start New Session</p>
-                <p className="mt-0.5 text-sm text-[#9492A4]">
+                <p className="mt-0.5 text-sm text-[var(--text-secondary)]">
                   Pick a role, answer out loud, get coached instantly.
                 </p>
               </div>

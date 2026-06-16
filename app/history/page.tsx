@@ -99,7 +99,7 @@ export default function HistoryPage() {
           Your Practice History
         </h1>
 
-        {/* aggregate stats */}
+        {/* Aggregate stats */}
         <div className="mt-6 grid grid-cols-3 gap-4">
           {[
             { label: "Sessions", value: sessions.length },
@@ -111,25 +111,25 @@ export default function HistoryPage() {
           ].map((s) => (
             <div
               key={s.label}
-              className="rounded-xl border border-[#2A2A3C] bg-[#13131A] p-4 text-center"
+              className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4 text-center shadow-[var(--card-shadow)]"
             >
               <p className="font-display text-2xl">{s.value}</p>
-              <p className="text-xs text-[#9492A4]">{s.label}</p>
+              <p className="text-xs text-[var(--text-secondary)]">{s.label}</p>
             </div>
           ))}
         </div>
 
-        {/* filter tabs */}
+        {/* Filter tabs */}
         <div className="mt-8 flex gap-2 overflow-x-auto no-scrollbar">
           {FILTERS.map((f) => (
             <button
               key={f.value}
               onClick={() => setFilter(f.value)}
               className={cn(
-                "shrink-0 rounded-full border px-4 py-1.5 text-sm transition",
+                "shrink-0 rounded-full border px-4 py-1.5 text-sm transition-colors",
                 filter === f.value
-                  ? "border-amber-500 bg-amber-500/10 text-amber-300"
-                  : "border-[#2A2A3C] text-[#9492A4] hover:text-[#F1F0EE]"
+                  ? "border-amber-500 bg-amber-500/10 text-amber-500"
+                  : "border-[var(--border)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
               )}
             >
               {f.label}
@@ -137,18 +137,18 @@ export default function HistoryPage() {
           ))}
         </div>
 
-        {/* list */}
+        {/* Session list */}
         <div className="mt-6 space-y-3">
           {loading ? (
             <div className="flex h-48 items-center justify-center">
-              <Loader2 className="h-7 w-7 animate-spin text-amber-400" />
+              <Loader2 className="h-7 w-7 animate-spin text-amber-500" />
             </div>
           ) : filtered.length === 0 ? (
-            <div className="rounded-xl border border-dashed border-[#2A2A3C] bg-[#13131A] p-10 text-center">
+            <div className="rounded-xl border border-dashed border-[var(--border)] bg-[var(--surface)] p-10 text-center">
               <p className="font-display text-xl">No sessions yet.</p>
               <Link
                 href="/session/new"
-                className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-amber-400 hover:underline"
+                className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-amber-500 hover:underline"
               >
                 Start your first practice
                 <ArrowRight className="h-4 w-4" />
@@ -163,11 +163,11 @@ export default function HistoryPage() {
               return (
                 <div
                   key={s.id}
-                  className="overflow-hidden rounded-xl border border-[#2A2A3C] bg-[#13131A]"
+                  className="overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--surface)] shadow-[var(--card-shadow)]"
                 >
                   <button
                     onClick={() => setExpanded(isOpen ? null : s.id)}
-                    className="flex w-full items-center gap-4 p-5 text-left transition hover:bg-[#1C1C27]/40"
+                    className="flex w-full items-center gap-4 p-5 text-left transition-colors hover:bg-[var(--surface-2)]"
                   >
                     <div className="flex-1">
                       <div className="flex flex-wrap items-center gap-2">
@@ -179,7 +179,7 @@ export default function HistoryPage() {
                           {difficultyLabel[s.difficulty] ?? s.difficulty}
                         </Badge>
                       </div>
-                      <p className="mt-1 text-sm text-[#9492A4]">
+                      <p className="mt-1 text-sm text-[var(--text-secondary)]">
                         {formatRelativeDate(s.created_at)} ·{" "}
                         {s.status === "completed"
                           ? `${responses.length} answered`
@@ -193,7 +193,7 @@ export default function HistoryPage() {
                       <Link
                         href={`/session/${s.id}`}
                         onClick={(e) => e.stopPropagation()}
-                        className="inline-flex items-center gap-1 text-sm font-medium text-amber-400 hover:underline"
+                        className="inline-flex items-center gap-1 text-sm font-medium text-amber-500 hover:underline"
                       >
                         Resume
                         <ArrowRight className="h-3.5 w-3.5" />
@@ -202,16 +202,16 @@ export default function HistoryPage() {
 
                     <ChevronDown
                       className={cn(
-                        "h-5 w-5 shrink-0 text-[#9492A4] transition-transform",
+                        "h-5 w-5 shrink-0 text-[var(--text-secondary)] transition-transform",
                         isOpen && "rotate-180"
                       )}
                     />
                   </button>
 
                   {isOpen && (
-                    <div className="animate-fade-in border-t border-[#2A2A3C] p-5">
+                    <div className="animate-fade-in border-t border-[var(--border)] p-5">
                       {responses.length === 0 ? (
-                        <p className="text-sm text-[#9492A4]">
+                        <p className="text-sm text-[var(--text-secondary)]">
                           No answered questions in this session yet.
                         </p>
                       ) : (
@@ -219,10 +219,10 @@ export default function HistoryPage() {
                           {responses.map((r) => (
                             <div
                               key={r.id}
-                              className="rounded-lg border border-[#2A2A3C] bg-[#0F0F16] p-4"
+                              className="rounded-lg border border-[var(--border)] bg-[var(--surface-inset)] p-4"
                             >
                               <div className="flex items-start justify-between gap-3">
-                                <p className="text-sm font-medium text-[#F1F0EE]">
+                                <p className="text-sm font-medium text-[var(--text-primary)]">
                                   Q{r.question_number}. {r.question}
                                 </p>
                                 {r.score != null && (
@@ -236,11 +236,11 @@ export default function HistoryPage() {
                                 <div className="mt-3 grid gap-3 sm:grid-cols-2">
                                   {r.strengths?.length ? (
                                     <div>
-                                      <p className="mb-1 flex items-center gap-1.5 text-xs font-semibold text-emerald-400">
+                                      <p className="mb-1 flex items-center gap-1.5 text-xs font-semibold text-emerald-500">
                                         <CheckCircle2 className="h-3.5 w-3.5" />
                                         Strengths
                                       </p>
-                                      <ul className="space-y-1 text-xs text-[#C9C8D3]">
+                                      <ul className="space-y-1 text-xs text-[var(--text-primary)]">
                                         {r.strengths.map((x, i) => (
                                           <li key={i}>• {x}</li>
                                         ))}
@@ -249,11 +249,11 @@ export default function HistoryPage() {
                                   ) : null}
                                   {r.improvements?.length ? (
                                     <div>
-                                      <p className="mb-1 flex items-center gap-1.5 text-xs font-semibold text-orange-400">
+                                      <p className="mb-1 flex items-center gap-1.5 text-xs font-semibold text-orange-500">
                                         <AlertTriangle className="h-3.5 w-3.5" />
                                         Improve
                                       </p>
-                                      <ul className="space-y-1 text-xs text-[#C9C8D3]">
+                                      <ul className="space-y-1 text-xs text-[var(--text-primary)]">
                                         {r.improvements.map((x, i) => (
                                           <li key={i}>• {x}</li>
                                         ))}
